@@ -1,11 +1,16 @@
 import {type FormEvent, useState} from "react";
 import Navbar from "~/components/Navbar";
 import {useNavigate, useParams} from "react-router";
-import FileUploader from "~/components/fileUploader";
+import FileUploader from "~/components/FileUploader";
 import {usePuterStore} from "../lib/puter";
 import {convertPdfToImage} from "~/lib/pdf2img";
 import {generateUUID} from "~/lib/utils";
 import {prepareInstructions} from "../../constants";
+
+export const meta = () => ([
+    {title: 'Resumind | Upload'},
+    {name: 'description', content: 'Resume Upload'}
+])
 
 const Upload = () => {
 
@@ -62,7 +67,8 @@ const Upload = () => {
         await kv.set(`resume:${uuid}`, JSON.stringify(data));
 
         setStatusText('Analysis completed, redirecting ...');
-        console.log(data)
+        // console.log(data)
+        navigate(`/resume/${uuid}`);
     }
 
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
